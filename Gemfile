@@ -37,3 +37,11 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :test do
+  gem 'capybara', '~> 2.3.0'
+  gem 'capybara-screenshot', '~> 0.3.19'
+  gem 'poltergeist', '~> 1.5.0'
+  gem 'rspec-rails', '~> 2.14.1'
+  gem 'simplecov', '~> 0.8.2'
+end
