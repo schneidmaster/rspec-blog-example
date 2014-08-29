@@ -1,4 +1,7 @@
 class ArticlesController < ApplicationController
+  before_action :require_login, except: [:index, :show]
+  before_action :require_article_owner, only: [:edit, :update, :destroy]
+
   def index
     @articles = Article.all
   end
@@ -45,6 +48,16 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :text)
+    params.require(:article).permit(:title, :text).merge(user: User.find(session[:user_id]))
+  end
+
+  def require_login
+    redirect_to login_path unless session[:user_id]
+  end
+
+  def require_article_owner
+    user = User.find(session[:user_id])
+    article = Article.find(params[:id])
+    redirect_to root_path, alert: 'You may not access that article.' unless article.user == user
   end
 end

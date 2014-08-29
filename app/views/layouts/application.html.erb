@@ -8,6 +8,25 @@
 </head>
 <body>
 
+<% if flash[:notice] %>
+  <p>
+    <%= flash[:notice] %>
+  </p>
+<% end %>
+<% if flash[:alert] %>
+  <p>
+    <%= flash[:alert] %>
+  </p>
+<% end %>
+
+<% if logged_in? %>
+  <%= link_to 'Sign Out', logout_path %>
+<% else %>
+  <%= link_to 'Sign In', login_path %>
+<% end %>
+
+<hr>
+
 <%= yield %>
 
 </body>
