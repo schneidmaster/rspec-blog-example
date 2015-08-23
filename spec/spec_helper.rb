@@ -7,6 +7,7 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 require 'simplecov'
+require 'codeclimate-test-reporter'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -17,7 +18,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 # Generate coverage report
-SimpleCov.start
+SimpleCov.formatter = CodeClimate::TestReporter::Formatter if ENV['CIRCLE_ARTIFACTS']
+SimpleCov.start 'rails'
 
 RSpec.configure do |config|
   # ## Mock Framework
